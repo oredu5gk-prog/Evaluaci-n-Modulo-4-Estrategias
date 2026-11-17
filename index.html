@@ -1,0 +1,1128 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laboratorio de Decisiones · Cuestionario del Módulo IV</title>
+  <meta name="description" content="Cuestionario de estudio del Módulo IV: repaso de temas, 20 reactivos y constancia de término descargable.">
+  <style>
+:root{
+  --navy:#1B3A28; --navy-2:#2A5233; --teal:#2F6B4A; --teal-d:#1F4D34; --amber:#D8B93A;
+  --paper:#F2F6F1; --card:#FFFFFF; --line:#D5DFD5; --ink:#17261C; --mute:#5B6B60;
+  --ok:#2E7D4F; --ok-bg:#E7F4EC; --bad:#B3402C; --bad-bg:#FBEAE6;
+  --radius:16px;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;min-height:100vh;display:flex;flex-direction:column}
+h1,h2,h3{font-family:var(--serif);color:var(--navy);line-height:1.2;margin:0 0 .5em}
+h1{font-size:clamp(1.7rem,4vw,2.4rem)}
+h2{font-size:clamp(1.3rem,3vw,1.7rem)}
+p{margin:0 0 1em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-999px;top:8px;background:var(--amber);color:var(--navy);padding:8px 14px;border-radius:8px;z-index:20}
+.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+#app:focus{outline:none}
+
+/* Encabezado */
+.top{background:var(--navy);color:var(--paper);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{color:var(--amber);font-size:1.6rem}
+.brand-text{display:flex;flex-direction:column;line-height:1.2}
+.brand-text strong{font-family:var(--serif);font-size:1.1rem}
+.brand-text small{color:#C9DCCF;font-size:.8rem}
+.timer{display:flex;align-items:baseline;gap:8px;background:var(--navy-2);padding:6px 14px;border-radius:999px}
+.timer[hidden]{display:none}
+.timer-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:#C9DCCF}
+#timer{font-variant-numeric:tabular-nums;font-weight:700;font-size:1.1rem;color:var(--amber)}
+
+main{flex:1;width:100%;max-width:920px;margin:0 auto;padding:28px 18px 48px}
+.foot{text-align:center;color:var(--mute);font-size:.85rem;padding:18px;border-top:1px solid var(--line)}
+.foot p{margin:0}
+
+/* Tarjetas */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:0 1px 0 rgba(27,58,40,.04)}
+.card+.card{margin-top:18px}
+.eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin:0 0 .4em}
+
+/* Registro */
+.hero{display:grid;gap:22px}
+@media(min-width:760px){.hero{grid-template-columns:1fr 1fr;align-items:start}}
+.facts{list-style:none;padding:0;margin:0}
+.facts li{display:flex;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.facts li:last-child{border-bottom:0}
+.facts b{color:var(--teal);min-width:2.2em;font-family:var(--serif);font-size:1.2rem}
+.field{margin-bottom:16px}
+.field label{display:block;font-weight:700;margin-bottom:4px}
+.field input{width:100%;padding:12px 14px;font:inherit;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.field input:focus{border-color:var(--teal)}
+.field input[aria-invalid="true"]{border-color:var(--bad)}
+.hint{color:var(--mute);font-size:.88rem;margin:4px 0 0}
+.err{color:var(--bad);font-size:.9rem;margin:4px 0 0;min-height:1.2em}
+
+/* Botones */
+.btn{font:inherit;font-weight:700;border:2px solid transparent;border-radius:12px;padding:11px 20px;cursor:pointer;transition:transform .08s,background .15s}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--teal);color:#fff}
+.btn.primary:hover{background:var(--teal-d)}
+.btn.amber{background:var(--amber);color:var(--navy)}
+.btn.ghost{background:transparent;border-color:var(--navy);color:var(--navy)}
+.btn.ghost:hover{background:rgba(27,58,40,.07)}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn.wide{width:100%}
+
+/* Evaluación */
+.progress-row{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.progress{flex:1;height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.progress .bar{height:100%;background:var(--teal);width:0;transition:width .25s}
+.progress-txt{font-size:.9rem;color:var(--mute);white-space:nowrap}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.dot{width:36px;height:36px;border-radius:10px;border:2px solid var(--line);background:#fff;font:inherit;font-weight:700;font-size:.9rem;color:var(--mute);cursor:pointer}
+.dot.done{background:var(--teal);border-color:var(--teal);color:#fff}
+.dot[aria-current="step"]{outline:3px solid var(--amber);outline-offset:1px}
+.qhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.chip{display:inline-block;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:99px;background:#E1EEE4;color:var(--teal-d)}
+.chip.sec{background:#FBEFD6;color:#7A4E07}
+.readbox{border-left:6px solid var(--amber);background:#FBF7EC;padding:14px 18px;border-radius:0 12px 12px 0;margin:0 0 18px}
+.readbox .tag{display:block;font-size:.75rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#7A4E07;margin-bottom:4px}
+.readbox p{margin:0;font-family:var(--serif);font-size:1.02rem}
+.stem{font-family:var(--serif);font-size:1.25rem;font-weight:700;color:var(--navy);margin:0 0 16px}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:2px solid var(--line);border-radius:12px;margin-bottom:10px;cursor:pointer;background:#fff}
+.opt:hover{border-color:var(--teal)}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.letter{flex:none;width:30px;height:30px;border-radius:50%;background:var(--paper);border:2px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;color:var(--navy)}
+.opt input:checked+.letter{background:var(--teal);border-color:var(--teal);color:#fff}
+.opt input:focus-visible+.letter{outline:3px solid var(--amber);outline-offset:2px}
+.opt:has(input:checked){border-color:var(--teal);background:#EAF3EC}
+
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{display:flex;align-items:center;gap:12px;padding:10px 12px;border:2px solid var(--line);border-radius:12px;margin-bottom:8px;background:#fff;counter-increment:s}
+.steps li::before{content:counter(s);flex:none;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem}
+.steps .txt{flex:1}
+.mv{flex:none;width:40px;height:40px;border-radius:10px;border:2px solid var(--navy);background:#fff;color:var(--navy);font-size:1rem;cursor:pointer}
+.mv:hover:not([disabled]){background:var(--navy);color:#fff}
+.mv[disabled]{opacity:.3;cursor:not-allowed}
+
+.mopts{list-style:none;margin:0 0 16px;padding:14px;background:#EEF4EF;border:1px dashed var(--teal);border-radius:12px}
+.mopts li{display:flex;gap:10px;align-items:flex-start;padding:5px 0}
+.mrow{display:grid;grid-template-columns:1fr 110px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.mrow:last-child{border-bottom:0}
+.mrow select{font:inherit;padding:10px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);width:100%}
+.mrow select.dup{border-color:var(--bad);background:var(--bad-bg)}
+@media(max-width:520px){.mrow{grid-template-columns:1fr}}
+
+.navbar{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
+.banner{background:#FBEFD6;border:1px solid #E9C98A;color:#6B4607;padding:10px 14px;border-radius:12px;margin-bottom:16px;font-size:.95rem}
+
+/* Resultados */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:16px 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.stat small{display:block;color:var(--mute);text-transform:uppercase;letter-spacing:.1em;font-size:.72rem;font-weight:700}
+.stat strong{font-family:var(--serif);font-size:1.6rem;color:var(--navy)}
+.badge{display:inline-block;margin-left:8px;font-size:.75rem;font-weight:800;padding:2px 10px;border-radius:99px;vertical-align:middle;font-family:var(--sans)}
+.badge.ok{background:var(--ok-bg);color:var(--ok)}
+.badge.no{background:var(--bad-bg);color:var(--bad)}
+.diploma-wrap{margin:18px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 6px 24px rgba(27,58,40,.12)}
+.diploma-wrap canvas{display:block;width:100%;height:auto}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.review details{border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:10px}
+.review summary{cursor:pointer;padding:12px 16px;font-weight:700;display:flex;gap:10px;align-items:center}
+.review .mark{flex:none;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem}
+.review .mark.ok{background:var(--ok)}
+.review .mark.no{background:var(--bad)}
+.review .body{padding:0 16px 14px}
+.review .ans{border-radius:10px;padding:8px 12px;margin:8px 0}
+.review .ans.you{background:var(--bad-bg)}
+.review .ans.you.good{background:var(--ok-bg)}
+.review .ans.right{background:var(--ok-bg)}
+.review .ans b{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em}
+.review .ans p,.review .ans ol,.review .ans ul{margin:2px 0 0}
+.review .ans ol,.review .ans ul{padding-left:20px}
+.retro{font-size:.95rem;color:var(--mute)}
+
+dialog{border:0;border-radius:16px;padding:24px;max-width:440px;width:calc(100% - 32px);box-shadow:0 20px 60px rgba(27,58,40,.35)}
+dialog::backdrop{background:rgba(27,58,40,.55)}
+.dlg-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px}
+
+#print-sheet{display:none}
+@media print{
+  @page{size:A4 landscape;margin:0}
+  body>*:not(#print-sheet){display:none!important}
+  #print-sheet{display:block!important}
+  #print-sheet img{display:block;width:100vw;height:auto}
+  body{background:#fff}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Repaso y tablas de ejercicios */
+[data-focus]:focus{outline:none}
+.swipe{display:none;margin:0 0 6px}
+@media(max-width:600px){.swipe{display:block}}
+.repaso{margin-top:18px}
+.repaso details{border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:8px}
+.repaso summary{cursor:pointer;padding:12px 16px;font-weight:700;color:var(--navy);font-family:var(--serif)}
+.repaso details[open] summary{border-bottom:1px solid var(--line)}
+.repaso ul{margin:10px 0 12px;padding:0 18px 0 36px}
+.repaso li{margin-bottom:6px}
+.qtable-wrap{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:12px}
+.qtable{border-collapse:collapse;width:100%;font-size:.95rem;min-width:420px}
+.qtable caption{caption-side:top;text-align:left;font-weight:800;padding:10px 12px;background:#FBEFD6;color:#5E4706}
+.qtable th,.qtable td{border-top:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+.qtable thead th{background:var(--navy-2);color:#fff}
+.qtable tbody th{background:#EEF4EF;color:var(--navy)}
+
+</style>
+</head>
+<body>
+  <a class="skip" href="#app">Saltar al contenido</a>
+
+  <header class="top">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">◆</span>
+      <span class="brand-text">
+        <strong id="brand-title">Laboratorio de Decisiones</strong>
+        <small>Cuestionario de estudio · Módulo IV</small>
+      </span>
+    </div>
+    <div class="timer" id="timer-wrap" hidden>
+      <span class="timer-label">Tiempo</span>
+      <span id="timer" role="timer" aria-live="off">00:00</span>
+    </div>
+  </header>
+
+  <main id="app" tabindex="-1">
+    <noscript><p class="card">Esta evaluación necesita JavaScript. Actívalo en tu navegador y recarga la página.</p></noscript>
+  </main>
+
+  <footer class="foot">
+    <p id="foot-text"></p>
+  </footer>
+
+  <div id="live" class="sr" aria-live="polite" role="status"></div>
+
+  <dialog id="dlg" aria-labelledby="dlg-msg">
+    <p id="dlg-msg"></p>
+    <div class="dlg-actions">
+      <button type="button" class="btn ghost" id="dlg-cancel">Cancelar</button>
+      <button type="button" class="btn primary" id="dlg-ok">Aceptar</button>
+    </div>
+  </dialog>
+
+  <div id="print-sheet" aria-hidden="true"><img id="print-img" alt="Constancia de término"></div>
+
+  <script>
+/* Configuración: edita textos y reglas aquí. */
+window.LAB_CONFIG = {
+  titulo: 'Laboratorio de Decisiones',
+  asignatura: 'Estrategias para la Resolución de Problemas y Toma de Decisiones',
+  docente: 'Lic. Jessica Hernández Berríos',
+  escuela: 'Escuela Preparatoria No. 5 "Dr. Ángel Ma. Garibay Kintana"',
+  cuentaEjemplo: '2412345',
+  mensajeEntrega: 'Descarga tu constancia de término en JPG.',
+  aciertosMinimosParaDiploma: 0,  // 0 = todos reciben constancia al terminar
+  escalaMaxima: 10,
+  aprobatoria: 6,
+  mezclarOpciones: true,
+  permitirNuevoIntento: true,
+  mostrarRetroalimentacion: true,
+  mostrarPuntajeEnDiploma: true   // false = la constancia solo muestra el tiempo
+};
+
+</script>
+  <script>
+/*
+ * Módulo IV: Aplicando estrategias para resolver problemas.
+ * REPASO  = recopilación de temas que se muestra antes del cuestionario.
+ * QUESTIONS = reactivos. Tipos: 'mc' (opción múltiple) y 'match' (relacionar con opciones).
+ *   mc:    opciones (arreglo), correcta (índice de la opción correcta)
+ *   match: pares [{izq, der}], distractores (opcional)
+ *   Opcionales: caso, lectura, tabla {titulo, head:[], rows:[[]]}, retro
+ */
+window.REPASO = [
+  { titulo: '4.1 Identificando la situación problema', puntos: [
+    'Antes de buscar soluciones hay que conocer con claridad cuál es el problema.',
+    'Detectarlo implica observar con atención los hechos, analizar sus causas y entender las consecuencias de no actuar.',
+    'Una definición clara concentra los esfuerzos en lo importante y evita decidir desde percepciones superficiales.'
+  ] },
+  { titulo: '4.2 Alternativas creativas de solución', puntos: [
+    'Resolver un problema no siempre significa elegir la opción más obvia: hay que explorar rutas innovadoras.',
+    'Herramientas: paisaje de aprendizaje, role playing y diagrama de Pareto.',
+    'Promueven la imaginación, la colaboración y el pensamiento crítico.'
+  ] },
+  { titulo: '4.2.1 Paisaje de aprendizaje', puntos: [
+    'Metodología que vuelve el aprendizaje flexible, inclusivo y motivador.',
+    'Es un itinerario de actividades que integra competencias cognitivas, sociales y emocionales, adaptado a ritmos y estilos de aprendizaje (González-Herrero et al., 2025).',
+    'Combina la taxonomía de Bloom (recordar, comprender, aplicar, analizar, evaluar, crear) y las inteligencias múltiples; potencia la metacognición y la autogestión.',
+    'Favorece la motivación y la inclusión, y reduce el absentismo (Caraballo-Román et al., 2026).'
+  ] },
+  { titulo: '4.2.2 Role playing (juego de roles)', puntos: [
+    'Es la interpretación de papeles: se asumen roles en escenarios simulados para vivir situaciones reales de manera segura y controlada.',
+    'Exige pensar y resolver con creatividad, y reconocer las propias habilidades y deficiencias (Solís, 2012).',
+    'Trabaja relaciones, motivación y emociones; después se analiza y discute lo vivido.',
+    'Mejora la resolución de conflictos y la aceptación de las consecuencias de decidir (Martin, 1992).'
+  ] },
+  { titulo: 'Diagrama de Pareto (principio 80/20)', puntos: [
+    'Pocas causas generan la mayoría de los efectos; sirve para priorizar qué atender primero.',
+    'Pasos: registrar y contar cada causa, ordenar de mayor a menor, calcular el % y el % acumulado, graficar e identificar las causas vitales.',
+    '% = frecuencia ÷ total × 100. El % acumulado es la suma de los porcentajes hasta esa causa.',
+    'Las causas vitales son las primeras que juntas llegan a cerca de 80 %. Ojo: mide frecuencia, no gravedad.'
+  ] },
+  { titulo: '4.3 Evaluación de resultados', puntos: [
+    'El proceso no termina al elegir una alternativa: termina cuando se comprueba que la decisión fue la adecuada y funcionó.',
+    'Evaluar permite saber qué se logró y decidir si algo debe cambiar para mejorar.',
+    'Es un punto de comparación entre la situación inicial, el proceso de intervención y los resultados esperados.',
+    'No es al azar: requiere un proceso sistemático, objetivo y verificable.'
+  ] },
+  { titulo: '4.3.1 Matriz comparativa', puntos: [
+    'Cuadro de doble entrada para comparar objetos de una misma categoría con filas y columnas (Pérez, s.f.).',
+    'Primera columna: elementos a comparar. Primera fila: características a comparar. Cada celda: la información de un elemento respecto a una característica.',
+    'Sirve para organizar información, comparar opciones, identificar similitudes y diferencias, evaluar ventajas y desventajas, facilitar la toma de decisiones, favorecer el análisis crítico y sintetizar información.'
+  ] },
+  { titulo: '4.3.2 Proceso de autoevaluación', puntos: [
+    'Proceso sistemático y objetivo para verificar lo que se hace de manera individual o en equipo (Panadero y Alonso-Tapia, 2013).',
+    'Permite saber si se cumplen los criterios establecidos, identificar deficiencias y tomar decisiones de cambio o mejora con datos.',
+    'Quien se autoevalúa debe conocer los indicadores, ser honesto, analítico y crítico, y estar abierto a la retroalimentación.',
+    'Entre sus pasos: tener claros los criterios, analizar los resultados de manera honesta y objetiva, formular áreas de oportunidad basadas en los resultados y dar seguimiento al plan de acción.'
+  ] }
+];
+
+window.QUESTIONS = [
+  /* ===== 4.1 ===== */
+  { id: 1, seccion: '4.1 Situación problema', tipo: 'mc',
+    enunciado: '¿Qué implica detectar la situación problema?',
+    opciones: [
+      'Elegir de inmediato la primera solución que venga a la mente.',
+      'Observar con atención los hechos, analizar sus causas y entender las consecuencias de no actuar.',
+      'Buscar a la persona responsable para señalarla.',
+      'Esperar a que el problema se resuelva con el tiempo.'
+    ], correcta: 1,
+    retro: 'Detectar la situación problema implica observar con atención los hechos, analizar sus causas y entender las consecuencias que pueden derivarse de no actuar.' },
+  { id: 2, seccion: '4.1 Situación problema', tipo: 'mc',
+    caso: 'Mariana llega tarde a su primera clase tres veces por semana. Ella dice: «el problema es que la clase es muy temprano». Al revisar su rutina nota que se duerme a la 1:00 a. m. viendo videos y que no prepara sus cosas la noche anterior.',
+    enunciado: '¿Cuál es la definición más clara del problema de Mariana?',
+    opciones: [
+      'La escuela programa las clases demasiado temprano.',
+      'Sus hábitos nocturnos y la falta de preparación provocan los retardos.',
+      'Los videos que ve son demasiado largos.',
+      'Su profesor es muy estricto con la hora de entrada.'
+    ], correcta: 1,
+    retro: 'La primera explicación es una percepción superficial. Al observar los hechos y analizar las causas, el problema real son sus hábitos y su falta de preparación, algo sobre lo que sí puede actuar.' },
+  { id: 3, seccion: '4.1 Situación problema', tipo: 'mc',
+    enunciado: '¿Por qué es importante definir el problema con claridad antes de buscar soluciones?',
+    opciones: [
+      'Porque así ya no es necesario pensar en alternativas.',
+      'Porque permite concentrar los esfuerzos en lo importante y evita decidir desde percepciones superficiales.',
+      'Porque garantiza que la primera solución funcione.',
+      'Porque hace que el problema desaparezca por sí solo.'
+    ], correcta: 1,
+    retro: 'Este primer paso permite concentrar los esfuerzos en lo verdaderamente importante y evita que las decisiones se tomen desde percepciones superficiales; además abre la puerta a idear alternativas creativas.' },
+  { id: 4, seccion: '4.1 Situación problema', tipo: 'match',
+    caso: 'Diego quiere entender por qué le está yendo mal este semestre y escribe tres notas.',
+    enunciado: 'Relaciona cada nota de Diego con el paso que representa.',
+    pares: [
+      { izq: '«Reprobé dos parciales y solo entregué 4 de 10 tareas.»', der: 'Observar los hechos' },
+      { izq: '«No tengo horario de estudio y me distraigo con el celular.»', der: 'Analizar las causas' },
+      { izq: '«Si sigo así, puedo irme a examen extraordinario.»', der: 'Entender las consecuencias de no actuar' }
+    ],
+    retro: 'Los hechos son datos observables; las causas explican por qué ocurre; las consecuencias muestran lo que pasará si no se actúa.' },
+
+  /* ===== 4.2 ===== */
+  { id: 5, seccion: '4.2 Alternativas creativas', tipo: 'mc',
+    enunciado: 'De acuerdo con González-Herrero et al. (2025), ¿qué es un paisaje de aprendizaje?',
+    opciones: [
+      'Un examen único que todos resuelven al mismo tiempo y de la misma forma.',
+      'Un itinerario de actividades que integra competencias cognitivas, sociales y emocionales, adaptado a los ritmos y estilos de aprendizaje.',
+      'Una gráfica de barras que ordena las causas de un problema.',
+      'Una representación teatral de un conflicto.'
+    ], correcta: 1,
+    retro: 'El paisaje de aprendizaje se fundamenta en que los estudiantes recorran un itinerario de actividades que integren competencias cognitivas, sociales y emocionales, adaptadas a sus ritmos y estilos de aprendizaje.' },
+  { id: 6, seccion: '4.2 Alternativas creativas', tipo: 'mc',
+    caso: 'Para un mismo tema, una docente ofrece tres caminos: ver un video y hacer un esquema, resolver una práctica en equipo o enfrentar un reto individual. Cada estudiante elige su ruta, avanza a su ritmo y todos llegan a la misma meta.',
+    enunciado: '¿Qué herramienta está aplicando la docente?',
+    opciones: ['Role playing', 'Diagrama de Pareto', 'Paisaje de aprendizaje', 'Matriz comparativa'], correcta: 2,
+    retro: 'Es un paisaje de aprendizaje: un itinerario flexible y personalizado que atiende ritmos y estilos distintos para llegar a la misma meta.' },
+  { id: 7, seccion: '4.2 Alternativas creativas', tipo: 'mc',
+    enunciado: 'Según Caraballo-Román et al. (2026), ¿qué favorece el paisaje de aprendizaje al atender la diversidad del alumnado?',
+    opciones: [
+      'La competencia entre estudiantes y la memorización.',
+      'La motivación y la inclusión, además de reducir el absentismo.',
+      'Que todos aprendan exactamente al mismo ritmo.',
+      'Que el docente deje de evaluar.'
+    ], correcta: 1,
+    retro: 'Su aplicación favorece la motivación y la inclusión, al atender la heterogeneidad del alumnado y reducir el absentismo; también potencia la metacognición y la autogestión.' },
+  { id: 8, seccion: '4.2 Alternativas creativas', tipo: 'mc',
+    caso: 'Luis diseñó su itinerario para mejorar en Matemáticas. La última actividad dice: «Diseñar mi propio plan de estudio de dos semanas».',
+    enunciado: '¿A qué nivel de la taxonomía de Bloom corresponde esa actividad?',
+    opciones: ['Recordar', 'Comprender', 'Aplicar', 'Crear'], correcta: 3,
+    retro: 'Diseñar, planear o proponer algo nuevo corresponde al nivel más alto: crear.' },
+  { id: 9, seccion: '4.2 Alternativas creativas', tipo: 'mc',
+    enunciado: '¿En qué consiste el role playing?',
+    opciones: [
+      'En memorizar un guion y repetirlo sin cambios.',
+      'En que los estudiantes asuman roles específicos dentro de escenarios simulados para experimentar situaciones de la vida real de manera segura y controlada.',
+      'En contar cuántas veces ocurre cada causa de un problema.',
+      'En comparar objetos en un cuadro de doble entrada.'
+    ], correcta: 1,
+    retro: 'En el role playing los estudiantes asumen roles específicos dentro de escenarios simulados, lo que les permite experimentar situaciones de la vida real de manera segura y controlada.' },
+  { id: 10, seccion: '4.2 Alternativas creativas', tipo: 'mc',
+    caso: 'Dos compañeros discuten cada vez que reparten las tareas del equipo. Su tutora les propone actuar la situación, intercambiar papeles y después analizar lo que sintió cada uno.',
+    enunciado: 'Según Martin (1992), ¿qué se logra con esta estrategia?',
+    opciones: [
+      'Que uno de los dos gane la discusión.',
+      'Mejorar la capacidad de resolución de conflictos y la aceptación de las consecuencias de las decisiones.',
+      'Evitar que vuelvan a trabajar en equipo.',
+      'Ordenar las causas del conflicto de mayor a menor.'
+    ], correcta: 1,
+    retro: 'El role playing trabaja relaciones interpersonales, motivación y emociones; mejora la capacidad de resolución de conflictos y la aceptación de las consecuencias que se derivan de la toma de decisiones.' },
+  { id: 11, seccion: '4.2 Alternativas creativas', tipo: 'mc',
+    enunciado: '¿Qué afirma el principio 80/20 en el que se basa el diagrama de Pareto?',
+    opciones: [
+      'Todas las causas de un problema pesan exactamente lo mismo.',
+      'Unas pocas causas generan la mayoría de los efectos.',
+      'El 80 % de los problemas no tiene solución.',
+      'Siempre hay que atender primero la causa menos frecuente.'
+    ], correcta: 1,
+    retro: 'El principio 80/20 señala que pocas causas generan la mayoría de los efectos; por eso el diagrama sirve para priorizar.' },
+  { id: 12, seccion: '4.2 Alternativas creativas', tipo: 'mc',
+    tabla: { titulo: 'Principal causa por la que 40 estudiantes no estudian para sus exámenes',
+      head: ['Causa', 'Frecuencia'],
+      rows: [['Celular y redes sociales', '14'], ['Falta de organización del tiempo', '10'], ['Cansancio o falta de sueño', '8'], ['Ruido o lugar inadecuado', '4'], ['No saben cómo estudiar', '3'], ['Otras', '1']] },
+    enunciado: 'Ejercicio. ¿Qué porcentaje acumulado suman las tres primeras causas?',
+    opciones: ['60 %', '70 %', '80 %', '90 %'], correcta: 2,
+    retro: '14 + 10 + 8 = 32 casos; 32 ÷ 40 × 100 = 80 %. Esas tres son las causas vitales: las que conviene atender primero.' },
+  { id: 13, seccion: '4.2 Alternativas creativas', tipo: 'mc',
+    enunciado: '¿Cuál es el orden correcto para construir un diagrama de Pareto?',
+    opciones: [
+      'Graficar → registrar y contar → calcular porcentajes → ordenar → identificar causas vitales.',
+      'Registrar y contar → ordenar de mayor a menor → calcular % y % acumulado → graficar → identificar causas vitales.',
+      'Identificar causas vitales → graficar → registrar y contar → ordenar → calcular porcentajes.',
+      'Ordenar de menor a mayor → graficar → registrar y contar → calcular porcentajes → identificar causas vitales.'
+    ], correcta: 1,
+    retro: 'Primero se registran y cuentan las causas, luego se ordenan de mayor a menor, se calculan el porcentaje y el acumulado, se grafica y al final se identifican las causas vitales.' },
+
+  /* ===== 4.3 ===== */
+  { id: 14, seccion: '4.3 Evaluación de resultados', tipo: 'mc',
+    enunciado: 'La evaluación de resultados es un punto de comparación entre:',
+    opciones: [
+      'La opinión del grupo, la del docente y la de la familia.',
+      'La situación inicial, el proceso de intervención y los resultados que se esperan.',
+      'Dos problemas distintos que ocurrieron el mismo día.',
+      'El tiempo invertido y el dinero gastado, únicamente.'
+    ], correcta: 1,
+    retro: 'La evaluación de resultados es un punto de comparación entre una situación inicial, el proceso de intervención y los resultados que se esperan.' },
+  { id: 15, seccion: '4.3 Evaluación de resultados', tipo: 'mc',
+    enunciado: 'Para que sea confiable, la evaluación de resultados requiere un proceso:',
+    opciones: ['Rápido, intuitivo y personal.', 'Sistemático, objetivo y verificable.', 'Secreto, flexible y opcional.', 'Al azar, según lo que se recuerde.'], correcta: 1,
+    retro: 'La evaluación de resultados no es algo al azar: requiere un proceso sistemático, el cual debe ser objetivo y verificable.' },
+  { id: 16, seccion: '4.3 Evaluación de resultados', tipo: 'mc',
+    tabla: { titulo: 'Red social más utilizada por adolescentes',
+      head: ['Red social', 'Uso principal', 'Tiempo al día', 'Ventaja', 'Riesgo'],
+      rows: [['TikTok', 'Ver videos cortos', '2 horas', 'Entretenimiento y creatividad', 'Pérdida de tiempo'],
+        ['Instagram', 'Compartir fotos y videos', '1.5 horas', 'Comunicación visual', 'Comparación social'],
+        ['WhatsApp', 'Enviar mensajes', '3 horas', 'Comunicación rápida', 'Distracciones constantes'],
+        ['YouTube', 'Ver contenido educativo y entretenimiento', '2 horas', 'Aprendizaje y diversión', 'Exceso de consumo de contenido']] },
+    enunciado: 'Ejercicio. Según la matriz, ¿qué red social tiene el mayor tiempo promedio de uso y cuál es su riesgo?',
+    opciones: [
+      'TikTok; pérdida de tiempo.',
+      'YouTube; exceso de consumo de contenido.',
+      'WhatsApp; distracciones constantes.',
+      'Instagram; comparación social.'
+    ], correcta: 2,
+    retro: 'En la fila de WhatsApp, la celda de «Tiempo al día» indica 3 horas (el mayor) y la de «Riesgo», distracciones constantes. Cada celda cruza un elemento con una característica.' },
+  { id: 17, seccion: '4.3 Evaluación de resultados', tipo: 'match',
+    enunciado: 'Relaciona cada parte de la matriz comparativa con lo que contiene.',
+    pares: [
+      { izq: 'Primera columna', der: 'Los elementos a comparar' },
+      { izq: 'Primera fila', der: 'Las características a comparar' },
+      { izq: 'Cada celda (intersección de fila y columna)', der: 'La información específica de un elemento respecto a una característica' }
+    ],
+    distractores: ['La conclusión personal de quien elabora la matriz'],
+    retro: 'En la primera columna van los elementos; en la primera fila, las características; cada celda contiene la información de un elemento respecto a una característica.' },
+  { id: 18, seccion: '4.3 Evaluación de resultados', tipo: 'mc',
+    enunciado: '¿Cuál de las siguientes opciones NO es una función de la matriz comparativa?',
+    opciones: [
+      'Organizar información.',
+      'Evaluar ventajas y desventajas.',
+      'Facilitar la toma de decisiones.',
+      'Sustituir el análisis crítico por la intuición.'
+    ], correcta: 3,
+    retro: 'La matriz comparativa favorece el análisis crítico, no lo sustituye. También sirve para organizar, comparar, identificar similitudes y diferencias, evaluar ventajas y desventajas, facilitar decisiones y sintetizar información.' },
+  { id: 19, seccion: '4.3 Evaluación de resultados', tipo: 'mc',
+    enunciado: 'De acuerdo con Panadero y Alonso-Tapia (2013), la autoevaluación es:',
+    opciones: [
+      'Una calificación que cada quien se pone según su estado de ánimo.',
+      'Un proceso sistemático y objetivo que sirve para verificar lo que se está haciendo, de manera individual o en equipo.',
+      'Una opinión del docente sobre el trabajo del estudiante.',
+      'Un trámite que se realiza solo al final del semestre.'
+    ], correcta: 1,
+    retro: 'La autoevaluación es un proceso sistemático que requiere ser objetivo y sirve para verificar lo que se está haciendo de manera individual o en equipo; permite identificar deficiencias y decidir cambios o mejoras.' },
+  { id: 20, seccion: '4.3 Evaluación de resultados', tipo: 'mc',
+    caso: 'Andrea termina su proyecto y se pone 10 en la autoevaluación «porque le echó muchas ganas», sin revisar la rúbrica ni comparar su trabajo con lo que se pedía.',
+    enunciado: '¿Qué falló en la autoevaluación de Andrea?',
+    opciones: [
+      'Debió pedirle a un compañero que la calificara.',
+      'No tuvo claros los criterios o indicadores ni analizó sus resultados de manera honesta y objetiva.',
+      'Se evaluó demasiado pronto; debía esperar una semana.',
+      'Nada: el esfuerzo es el único criterio que importa.'
+    ], correcta: 1,
+    retro: 'Quien se autoevalúa debe conocer los indicadores y analizar los resultados de manera honesta, reflexiva y objetiva; con base en ellos se formulan áreas de oportunidad y se da seguimiento al plan de acción.' }
+];
+
+</script>
+  <script>
+/* Laboratorio de Decisiones · lógica de la evaluación (sin dependencias) */
+(function () {
+  'use strict';
+
+  var CFG = window.LAB_CONFIG, Q = window.QUESTIONS;
+  var KEY = 'lab-decisiones-m4-v1';
+  var LETTERS = 'ABCDEFGHIJ';
+  var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  var TIPOS = { mc: 'Opción múltiple', order: 'Ordena los pasos', match: 'Relaciona columnas' };
+  var REPASO = window.REPASO || [];
+
+  var app = document.getElementById('app');
+  var S = null;          // estado persistente
+  var layouts = {};      // orden de opciones por reactivo (derivado de la semilla)
+  var timerId = null;
+  var chrome = { dots: [], bar: null, txt: null };
+
+  /* ---------- utilidades DOM ---------- */
+  function add(el, c) {
+    if (c == null || c === false) return;
+    if (Array.isArray(c)) c.forEach(function (x) { add(el, x); });
+    else if (c.nodeType) el.appendChild(c);
+    else el.appendChild(document.createTextNode(String(c)));
+  }
+  function h(tag, attrs) {
+    var el = document.createElement(tag);
+    if (attrs) {
+      Object.keys(attrs).forEach(function (k) {
+        var v = attrs[k];
+        if (v == null || v === false) return;
+        if (k === 'class') el.className = v;
+        else if (k.slice(0, 2) === 'on') el.addEventListener(k.slice(2), v);
+        else if (v === true) el.setAttribute(k, '');
+        else el.setAttribute(k, v);
+      });
+    }
+    for (var i = 2; i < arguments.length; i++) add(el, arguments[i]);
+    return el;
+  }
+  function say(msg) { var l = document.getElementById('live'); l.textContent = ''; setTimeout(function () { l.textContent = msg; }, 30); }
+  function show(node) {
+    stopTimer();
+    app.textContent = '';
+    app.appendChild(node);
+    window.scrollTo(0, 0);
+    var t = app.querySelector('[data-focus]');
+    if (t) { t.setAttribute('tabindex', '-1'); t.focus({ preventScroll: true }); }
+  }
+
+  /* ---------- persistencia ---------- */
+  function load() {
+    try {
+      var r = localStorage.getItem(KEY);
+      if (r) { var s = JSON.parse(r); if (s && s.v === 1 && s.qn === Q.length && s.datos) return s; }
+    } catch (e) { /* sin almacenamiento */ }
+    return null;
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignorar */ } }
+  function wipe() { try { localStorage.removeItem(KEY); } catch (e) { /* ignorar */ } }
+
+  /* ---------- aleatorio con semilla ---------- */
+  function rng(seed) {
+    return function () {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function shuffled(arr, seed, avoidIdentity) {
+    var n = arr.length, idx = arr.map(function (_, i) { return i; }), r = rng(seed), tries = 0;
+    do {
+      for (var i = n - 1; i > 0; i--) {
+        var j = Math.floor(r() * (i + 1)), t = idx[i]; idx[i] = idx[j]; idx[j] = t;
+      }
+      tries++;
+    } while (avoidIdentity && n > 1 && tries < 20 && idx.every(function (v, i) { return v === i; }));
+    return idx;
+  }
+  function layoutFor(q) {
+    if (layouts[q.id]) return layouts[q.id];
+    var seed = S.seed + q.id * 7919, L = {};
+    if (q.tipo === 'mc') {
+      L.ord = CFG.mezclarOpciones ? shuffled(q.opciones, seed, false) : q.opciones.map(function (_, i) { return i; });
+    } else if (q.tipo === 'order') {
+      L.ord = shuffled(q.items, seed, true);
+    } else {
+      L.all = q.pares.map(function (p) { return p.der; }).concat(q.distractores || []);
+      L.ord = shuffled(L.all, seed, false);
+    }
+    layouts[q.id] = L;
+    return L;
+  }
+
+  /* ---------- calificación ---------- */
+  function answered(q) {
+    var r = S.resp[q.id];
+    if (q.tipo === 'mc') return r != null;
+    if (q.tipo === 'order') return !!(r && r.t);
+    return !!(r && r.length === q.pares.length && r.every(function (v) { return v >= 0; }));
+  }
+  function isCorrect(q) {
+    var r = S.resp[q.id];
+    if (!answered(q)) return false;
+    if (q.tipo === 'mc') return r === q.correcta;
+    if (q.tipo === 'order') return r.arr.every(function (v, i) { return v === i; });
+    return r.every(function (v, i) { return v === i; });
+  }
+  function countAnswered() { return Q.filter(answered).length; }
+
+  /* ---------- formato ---------- */
+  function fmtTiempo(ms) {
+    var s = Math.max(0, Math.round(ms / 1000)), hh = Math.floor(s / 3600), mm = Math.floor((s % 3600) / 60), ss = s % 60;
+    if (hh > 0) return hh + ' h ' + mm + ' min ' + ss + ' s';
+    if (mm > 0) return mm + ' min ' + ss + ' s';
+    return ss + ' s';
+  }
+  function fmtReloj(ms) {
+    var s = Math.floor(ms / 1000), mm = Math.floor(s / 60), ss = s % 60;
+    return (mm < 10 ? '0' : '') + mm + ':' + (ss < 10 ? '0' : '') + ss;
+  }
+  function fmtFecha(ts) {
+    var d = new Date(ts);
+    return d.getDate() + ' de ' + MESES[d.getMonth()] + ' de ' + d.getFullYear();
+  }
+  function limpiaNombre(s) {
+    s = s.replace(/\s+/g, ' ').trim();
+    if (s === s.toUpperCase() || s === s.toLowerCase()) {
+      var part = ['de', 'del', 'la', 'las', 'los', 'y', 'e'];
+      s = s.toLowerCase().split(' ').map(function (w, i) {
+        return (i > 0 && part.indexOf(w) >= 0) ? w : w.charAt(0).toUpperCase() + w.slice(1);
+      }).join(' ');
+    }
+    return s;
+  }
+  function slug(s) {
+    return s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9]+/g, '_').replace(/^_|_$/g, '');
+  }
+  function folio(str) {
+    var h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+    for (var i = 0; i < str.length; i++) {
+      var ch = str.charCodeAt(i);
+      h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677);
+    }
+    h1 = Math.imul(h1 ^ h1 >>> 16, 2246822507) ^ Math.imul(h2 ^ h2 >>> 13, 3266489909);
+    h2 = Math.imul(h2 ^ h2 >>> 16, 2246822507) ^ Math.imul(h1 ^ h1 >>> 13, 3266489909);
+    var a = (h1 >>> 0).toString(16).toUpperCase(), b = (h2 >>> 0).toString(16).toUpperCase();
+    a = ('00000000' + a).slice(-8); b = ('00000000' + b).slice(-8);
+    return 'M4-' + a.slice(0, 4) + '-' + b.slice(0, 4);
+  }
+
+  /* ---------- temporizador ---------- */
+  function stopTimer() {
+    if (timerId) { clearInterval(timerId); timerId = null; }
+    document.getElementById('timer-wrap').hidden = true;
+  }
+  function startTimer() {
+    var wrap = document.getElementById('timer-wrap'), t = document.getElementById('timer');
+    wrap.hidden = false;
+    function tick() { t.textContent = fmtReloj(Date.now() - S.inicio); }
+    tick();
+    timerId = setInterval(tick, 1000);
+  }
+
+  /* ---------- diálogo ---------- */
+  function confirmar(msg, okTxt, cancelTxt, onOk) {
+    var dlg = document.getElementById('dlg');
+    if (!dlg.showModal) { if (window.confirm(msg)) onOk(); return; }
+    document.getElementById('dlg-msg').textContent = msg;
+    var ok = document.getElementById('dlg-ok'), no = document.getElementById('dlg-cancel');
+    ok.textContent = okTxt; no.textContent = cancelTxt;
+    ok.onclick = function () { dlg.close(); onOk(); };
+    no.onclick = function () { dlg.close(); };
+    dlg.showModal();
+  }
+
+  /* =====================================================
+     Pantalla 1 · Registro
+     ===================================================== */
+  function screenRegistro() {
+    var prev = (S && S.datos) || {};
+    var iNombre = h('input', { id: 'f-nombre', type: 'text', autocomplete: 'name', maxlength: 80, required: true, 'aria-describedby': 'e-nombre h-nombre', placeholder: 'Nombre(s) y apellidos', value: prev.nombre || '' });
+    var iCuenta = h('input', { id: 'f-cuenta', type: 'text', inputmode: 'numeric', autocomplete: 'off', maxlength: 10, required: true, 'aria-describedby': 'e-cuenta', placeholder: 'Ej. ' + CFG.cuentaEjemplo, value: prev.cuenta || '' });
+    var eNombre = h('p', { class: 'err', id: 'e-nombre' });
+    var eCuenta = h('p', { class: 'err', id: 'e-cuenta' });
+
+    function setErr(inp, el, msg) {
+      el.textContent = msg || '';
+      if (msg) inp.setAttribute('aria-invalid', 'true'); else inp.removeAttribute('aria-invalid');
+      return !msg;
+    }
+    var form = h('form', { novalidate: true, onsubmit: function (e) {
+      e.preventDefault();
+      var nombre = limpiaNombre(iNombre.value), cuenta = iCuenta.value.replace(/\s+/g, '');
+      var okN, okG;
+      if (nombre.split(' ').length < 2) okN = setErr(iNombre, eNombre, 'Escribe tu nombre completo (nombre y al menos un apellido).');
+      else if (!/^[\p{L}][\p{L}'. \-]*$/u.test(nombre)) okN = setErr(iNombre, eNombre, 'Usa solo letras en tu nombre.');
+      else okN = setErr(iNombre, eNombre, '');
+      okG = setErr(iCuenta, eCuenta, /^\d{5,10}$/.test(cuenta) ? '' : 'Escribe tu número de cuenta (solo números, de 5 a 10 dígitos).');
+      if (!okN) { iNombre.focus(); return; }
+      if (!okG) { iCuenta.focus(); return; }
+      layouts = {};
+      S = { v: 1, qn: Q.length, fase: 'eval', datos: { nombre: nombre, cuenta: cuenta }, seed: Math.floor(Math.random() * 2147483647), inicio: Date.now(), idx: 0, resp: {} };
+      save();
+      render();
+    } },
+      h('div', { class: 'field' }, h('label', { for: 'f-nombre' }, 'Nombre completo'), iNombre,
+        h('p', { class: 'hint', id: 'h-nombre' }, 'Así aparecerá en tu constancia. Revísalo bien: no se podrá cambiar.'), eNombre),
+      h('div', { class: 'field' }, h('label', { for: 'f-cuenta' }, 'Número de cuenta'), iCuenta, eCuenta),
+      h('button', { type: 'submit', class: 'btn primary wide' }, 'Comenzar cuestionario'),
+      h('p', { class: 'hint', style: 'margin-top:12px' }, 'Tus datos se guardan solo en este navegador. El tiempo empieza a contar al presionar el botón.')
+    );
+
+    var tot = Q.length;
+    var hero = h('div', { class: 'hero' },
+      h('section', { class: 'card' },
+        h('p', { class: 'eyebrow' }, CFG.asignatura),
+        h('h1', { 'data-focus': true }, 'Cuestionario de estudio del Módulo IV'),
+        h('p', null, 'Repasa los temas del módulo «Aplicando estrategias para resolver problemas» y pon a prueba lo que aprendiste.'),
+        h('ul', { class: 'facts' },
+          h('li', null, h('b', null, tot), h('span', null, 'reactivos: preguntas, casos y ejercicios que se resuelven eligiendo opciones.')),
+          h('li', null, h('b', null, '①'), h('span', null, 'Antes de empezar puedes leer el repaso de los temas (más abajo).')),
+          h('li', null, h('b', null, '②'), h('span', null, 'Al terminar verás tus aciertos y la explicación de cada respuesta.')),
+          h('li', null, h('b', null, '⏱'), h('span', null, 'No hay límite de tiempo, pero se registra cuánto tardas.')),
+          h('li', null, h('b', null, '🎓'), h('span', null, 'Al final descargas tu constancia de término en JPG.'))
+        )
+      ),
+      h('section', { class: 'card' }, h('h2', null, 'Registra tus datos'), form)
+    );
+    show(h('div', null, hero, repasoBlock(true)));
+  }
+
+  function repasoBlock(open) {
+    if (!REPASO.length) return null;
+    var box = h('section', { class: 'card repaso', id: 'repaso' }, h('p', { class: 'eyebrow' }, 'Recopilación de temas'), h('h2', null, 'Repaso del Módulo IV'),
+      h('p', { class: 'hint' }, 'Toca cada tema para abrirlo o cerrarlo.'));
+    REPASO.forEach(function (r, i) {
+      box.appendChild(h('details', i === 0 && open ? { open: true } : null, h('summary', null, r.titulo),
+        h('ul', null, r.puntos.map(function (p) { return h('li', null, p); }))));
+    });
+    return box;
+  }
+  function tablaNode(t) {
+    return h('div', null, h('p', { class: 'hint swipe' }, 'Desliza la tabla hacia los lados para ver todas las columnas.'), h('div', { class: 'qtable-wrap', tabindex: '0', role: 'group', 'aria-label': t.titulo },
+      h('table', { class: 'qtable' },
+        h('caption', null, t.titulo),
+        h('thead', null, h('tr', null, t.head.map(function (c) { return h('th', { scope: 'col' }, c); }))),
+        h('tbody', null, t.rows.map(function (r) {
+          return h('tr', null, r.map(function (c, k) { return k === 0 ? h('th', { scope: 'row' }, c) : h('td', null, c); }));
+        })))));
+  }
+
+  /* =====================================================
+     Pantalla 2 · Evaluación
+     ===================================================== */
+  function updateChrome() {
+    var n = countAnswered();
+    chrome.dots.forEach(function (d, i) {
+      var q = Q[i], done = answered(q);
+      d.className = 'dot' + (done ? ' done' : '');
+      d.setAttribute('aria-label', 'Pregunta ' + (i + 1) + (done ? ', respondida' : ', sin responder'));
+      if (i === S.idx) d.setAttribute('aria-current', 'step'); else d.removeAttribute('aria-current');
+    });
+    chrome.bar.style.width = (n / Q.length * 100) + '%';
+    chrome.txt.textContent = n + ' de ' + Q.length + ' respondidas';
+  }
+
+  function renderMC(q) {
+    var L = layoutFor(q), name = 'q' + q.id;
+    var fs = h('fieldset', { class: 'opts' }, h('legend', { class: 'sr' }, 'Opciones de respuesta'));
+    L.ord.forEach(function (oi, pos) {
+      var id = name + '-' + pos;
+      var inp = h('input', { type: 'radio', name: name, id: id, value: oi, checked: S.resp[q.id] === oi, onchange: function () {
+        S.resp[q.id] = oi; save(); updateChrome();
+      } });
+      fs.appendChild(h('label', { class: 'opt', for: id }, inp, h('span', { class: 'letter', 'aria-hidden': 'true' }, LETTERS[pos]), h('span', null, q.opciones[oi])));
+    });
+    return fs;
+  }
+
+  function renderOrder(q) {
+    var L = layoutFor(q), list = h('ol', { class: 'steps' });
+    function cur() { var r = S.resp[q.id]; return r ? r.arr : L.ord.slice(); }
+    function move(pos, d, which) {
+      var arr = cur().slice(), t = arr[pos];
+      arr[pos] = arr[pos + d]; arr[pos + d] = t;
+      S.resp[q.id] = { arr: arr, t: true };
+      save(); draw(); updateChrome();
+      var li = list.children[pos + d], b = li.querySelector('.' + which);
+      if (b.disabled) b = li.querySelector('.' + (which === 'up' ? 'down' : 'up'));
+      b.focus();
+      say('Paso movido a la posición ' + (pos + d + 1) + ' de ' + arr.length);
+    }
+    function draw() {
+      list.textContent = '';
+      var arr = cur();
+      arr.forEach(function (ii, pos) {
+        list.appendChild(h('li', null,
+          h('span', { class: 'txt' }, q.items[ii]),
+          h('button', { type: 'button', class: 'mv up', 'aria-label': 'Subir: ' + q.items[ii], disabled: pos === 0, onclick: function () { move(pos, -1, 'up'); } }, '▲'),
+          h('button', { type: 'button', class: 'mv down', 'aria-label': 'Bajar: ' + q.items[ii], disabled: pos === arr.length - 1, onclick: function () { move(pos, 1, 'down'); } }, '▼')
+        ));
+      });
+    }
+    draw();
+    return h('div', null, h('p', { class: 'hint' }, 'Usa las flechas para mover cada paso hasta dejarlos en el orden correcto (1 = primero).'), list);
+  }
+
+  function renderMatch(q) {
+    var L = layoutFor(q);
+    function cur() { return (S.resp[q.id] || q.pares.map(function () { return -1; })).slice(); }
+    var sels = [];
+    function markDup() {
+      var c = cur();
+      sels.forEach(function (s, i) {
+        var dup = c[i] >= 0 && c.some(function (v, j) { return j !== i && v === c[i]; });
+        s.className = dup ? 'dup' : '';
+      });
+    }
+    var opts = h('ol', { class: 'mopts', 'aria-label': 'Opciones para relacionar' });
+    L.ord.forEach(function (oi, pos) {
+      opts.appendChild(h('li', null, h('span', { class: 'letter', 'aria-hidden': 'true' }, LETTERS[pos]), h('span', null, L.all[oi])));
+    });
+    var rows = h('div', null);
+    q.pares.forEach(function (p, i) {
+      var s = h('select', { 'aria-label': 'Respuesta para: ' + p.izq, onchange: function (e) {
+        var c = cur(); c[i] = parseInt(e.target.value, 10);
+        S.resp[q.id] = c; save(); updateChrome(); markDup();
+      } });
+      s.appendChild(h('option', { value: -1 }, 'Elige…'));
+      var sel = cur()[i];
+      L.ord.forEach(function (oi, pos) { s.appendChild(h('option', { value: oi, selected: sel === oi }, LETTERS[pos])); });
+      sels.push(s);
+      rows.appendChild(h('div', { class: 'mrow' }, h('span', null, (i + 1) + '. ' + p.izq), s));
+    });
+    markDup();
+    return h('div', null,
+      h('p', { class: 'hint' }, 'Elige en cada situación la letra de la opción que le corresponde. Cada opción se usa una sola vez.'),
+      opts, rows);
+  }
+
+  function screenEval(resumed) {
+    var q = Q[S.idx];
+    var bar = h('div', { class: 'bar' });
+    var txt = h('span', { class: 'progress-txt' });
+    var dots = h('nav', { class: 'dots', 'aria-label': 'Ir a una pregunta' });
+    chrome.dots = Q.map(function (_, i) {
+      var b = h('button', { type: 'button', class: 'dot', onclick: function () { go(i); } }, String(i + 1));
+      dots.appendChild(b); return b;
+    });
+    chrome.bar = bar; chrome.txt = txt;
+
+    var body = q.tipo === 'mc' ? renderMC(q) : q.tipo === 'order' ? renderOrder(q) : renderMatch(q);
+    var ctx = q.lectura ? ['Lectura', q.lectura] : q.caso ? ['Caso', q.caso] : null;
+    var last = S.idx === Q.length - 1;
+
+    var node = h('div', null,
+      resumed ? h('div', { class: 'banner', role: 'status' }, 'Retomaste tu cuestionario donde lo dejaste. El tiempo siguió corriendo.') : null,
+      h('div', { class: 'progress-row' }, h('div', { class: 'progress', role: 'presentation' }, bar), txt),
+      dots,
+      h('section', { class: 'card' },
+        h('div', { class: 'qhead' },
+          h('span', { class: 'chip sec' }, q.seccion),
+          h('span', { class: 'chip' }, TIPOS[q.tipo])),
+        h('h2', { 'data-focus': true }, 'Pregunta ' + (S.idx + 1) + ' de ' + Q.length),
+        ctx ? h('div', { class: 'readbox' }, h('span', { class: 'tag' }, ctx[0]), h('p', null, ctx[1])) : null,
+        q.tabla ? tablaNode(q.tabla) : null,
+        h('p', { class: 'stem' }, q.enunciado),
+        body,
+        h('div', { class: 'navbar' },
+          h('button', { type: 'button', class: 'btn ghost', disabled: S.idx === 0, onclick: function () { go(S.idx - 1); } }, '← Anterior'),
+          last ? h('button', { type: 'button', class: 'btn amber', onclick: terminar }, 'Terminar cuestionario')
+               : h('button', { type: 'button', class: 'btn primary', onclick: function () { go(S.idx + 1); } }, 'Siguiente →')
+        )
+      )
+    );
+    show(node);
+    updateChrome();
+    startTimer();
+  }
+
+  function go(i) {
+    if (i < 0 || i >= Q.length) return;
+    S.idx = i; save(); screenEval(false);
+  }
+
+  function terminar() {
+    var faltan = [];
+    Q.forEach(function (q, i) { if (!answered(q)) faltan.push(i + 1); });
+    var msg = faltan.length
+      ? 'Te faltan ' + faltan.length + ' pregunta' + (faltan.length > 1 ? 's' : '') + ' por responder (' + faltan.join(', ') + '). Si terminas ahora contarán como incorrectas. ¿Terminar de todos modos?'
+      : 'Vas a terminar el cuestionario. Después no podrás cambiar tus respuestas. ¿Continuar?';
+    confirmar(msg, 'Terminar', 'Seguir contestando', finalizar);
+  }
+
+  function finalizar() {
+    var detalle = Q.map(isCorrect);
+    var aciertos = detalle.filter(Boolean).length;
+    S.fin = Date.now();
+    S.fase = 'fin';
+    S.result = {
+      detalle: detalle,
+      aciertos: aciertos,
+      calif: Math.round(aciertos / Q.length * CFG.escalaMaxima * 10) / 10,
+      tiempoMs: S.fin - S.inicio
+    };
+    S.result.folio = folio([S.datos.nombre, S.datos.cuenta, S.fin, aciertos, S.result.tiempoMs].join('|'));
+    save();
+    render();
+  }
+
+  /* =====================================================
+     Diploma (canvas)
+     ===================================================== */
+  function fitText(x, text, maxW, size, style, family) {
+    do { x.font = style + ' ' + size + 'px ' + family; size -= 2; } while (x.measureText(text).width > maxW && size > 18);
+  }
+  function wrap(x, text, maxW) {
+    var words = text.split(' '), lines = [], cur = '';
+    words.forEach(function (w) {
+      var t = cur ? cur + ' ' + w : w;
+      if (x.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t;
+    });
+    if (cur) lines.push(cur);
+    return lines;
+  }
+  function roundRect(x, px, py, w, hh, r) {
+    x.beginPath(); x.moveTo(px + r, py); x.lineTo(px + w - r, py); x.quadraticCurveTo(px + w, py, px + w, py + r);
+    x.lineTo(px + w, py + hh - r); x.quadraticCurveTo(px + w, py + hh, px + w - r, py + hh);
+    x.lineTo(px + r, py + hh); x.quadraticCurveTo(px, py + hh, px, py + hh - r);
+    x.lineTo(px, py + r); x.quadraticCurveTo(px, py, px + r, py); x.closePath();
+  }
+
+  function drawDiploma(canvas, d) {
+    var W = 1754, H = 1240;
+    canvas.width = W; canvas.height = H;
+    var x = canvas.getContext('2d');
+    var NAVY = '#1B3A28', TEAL = '#2F6B4A', TEALD = '#1F4D34', AMB = '#C9A227', PAPER = '#FBFAF4', MUTE = '#5B6B60';
+    var SERIF = 'Georgia, "Times New Roman", serif', SANS = '"Segoe UI", Arial, Helvetica, sans-serif';
+
+    x.fillStyle = PAPER; x.fillRect(0, 0, W, H);
+    x.strokeStyle = 'rgba(27,58,40,0.04)'; x.lineWidth = 2;
+    for (var i = -H; i < W; i += 28) { x.beginPath(); x.moveTo(i, 0); x.lineTo(i + H, H); x.stroke(); }
+
+    x.strokeStyle = NAVY; x.lineWidth = 16; x.strokeRect(36, 36, W - 72, H - 72);
+    x.strokeStyle = AMB; x.lineWidth = 4; x.strokeRect(66, 66, W - 132, H - 132);
+    x.strokeStyle = TEAL; x.lineWidth = 2; x.strokeRect(80, 80, W - 160, H - 160);
+    [[66, 66], [W - 66, 66], [66, H - 66], [W - 66, H - 66]].forEach(function (p) {
+      x.fillStyle = AMB; x.fillRect(p[0] - 14, p[1] - 14, 28, 28);
+      x.fillStyle = NAVY; x.fillRect(p[0] - 6, p[1] - 6, 12, 12);
+    });
+
+    x.textAlign = 'center'; x.textBaseline = 'alphabetic';
+    var cx = W / 2;
+
+    x.fillStyle = MUTE; fitText(x, d.escuela.toUpperCase(), 1300, 28, '600', SANS);
+    x.fillText(d.escuela.toUpperCase(), cx, 150);
+    x.fillStyle = TEAL; x.font = '700 24px ' + SANS;
+    x.fillText('LABORATORIO DE DECISIONES  ·  MÓDULO IV', cx, 200);
+
+    x.fillStyle = NAVY; x.font = '700 124px ' + SERIF;
+    x.fillText('CONSTANCIA', cx, 330);
+
+    x.strokeStyle = AMB; x.lineWidth = 4;
+    x.beginPath(); x.moveTo(cx - 190, 372); x.lineTo(cx - 20, 372); x.moveTo(cx + 20, 372); x.lineTo(cx + 190, 372); x.stroke();
+    x.fillStyle = AMB; x.beginPath(); x.moveTo(cx, 358); x.lineTo(cx + 14, 372); x.lineTo(cx, 386); x.lineTo(cx - 14, 372); x.closePath(); x.fill();
+
+    x.fillStyle = MUTE; x.font = 'italic 36px ' + SERIF;
+    x.fillText('de término · Cuestionario de estudio', cx, 430);
+    x.fillStyle = NAVY; x.font = '30px ' + SANS;
+    x.fillText('Se otorga a', cx, 495);
+
+    x.fillStyle = TEALD; fitText(x, d.nombre, 1250, 100, 'italic 700', SERIF);
+    x.fillText(d.nombre, cx, 595);
+    x.strokeStyle = AMB; x.lineWidth = 3;
+    x.beginPath(); x.moveTo(300, 622); x.lineTo(W - 300, 622); x.stroke();
+
+    x.fillStyle = NAVY; x.font = '30px ' + SANS;
+    var para = 'con número de cuenta ' + d.cuenta + ', por haber concluido el cuestionario de estudio del Módulo IV «Aplicando estrategias para resolver problemas» de la asignatura ' + d.asignatura + '.';
+    wrap(x, para, 1200).forEach(function (ln, k) { x.fillText(ln, cx, 682 + k * 42); });
+
+    var boxes = [];
+    if (d.mostrarPuntaje) { boxes.push(['Aciertos', d.aciertos + ' de ' + d.total]); boxes.push(['Calificación', d.calif.toFixed(1)]); }
+    boxes.push(['Tiempo de respuesta', d.tiempo]);
+    var bw = 380, gap = 36, total = boxes.length * bw + (boxes.length - 1) * gap, bx = (W - total) / 2, by = 805, bh = 118;
+    boxes.forEach(function (b, k) {
+      var px = bx + k * (bw + gap);
+      roundRect(x, px, by, bw, bh, 18); x.fillStyle = '#FFFFFF'; x.fill();
+      x.strokeStyle = TEAL; x.lineWidth = 3; x.stroke();
+      x.fillStyle = MUTE; x.font = '700 20px ' + SANS; x.fillText(b[0].toUpperCase(), px + bw / 2, by + 36);
+      x.fillStyle = NAVY; fitText(x, b[1], bw - 40, 52, '700', SERIF); x.fillText(b[1], px + bw / 2, by + 90);
+    });
+
+    x.fillStyle = NAVY; x.font = '32px ' + SANS;
+    x.fillText('Fecha de término: ' + d.fecha, cx, 975);
+
+    // Sello con listones
+    var sy = 1062;
+    x.fillStyle = TEAL;
+    x.beginPath(); x.moveTo(cx - 34, sy + 30); x.lineTo(cx - 4, sy + 40); x.lineTo(cx - 20, sy + 92); x.lineTo(cx - 30, sy + 78); x.lineTo(cx - 48, sy + 84); x.closePath(); x.fill();
+    x.beginPath(); x.moveTo(cx + 34, sy + 30); x.lineTo(cx + 4, sy + 40); x.lineTo(cx + 20, sy + 92); x.lineTo(cx + 30, sy + 78); x.lineTo(cx + 48, sy + 84); x.closePath(); x.fill();
+    x.beginPath(); x.arc(cx, sy, 56, 0, Math.PI * 2); x.fillStyle = AMB; x.fill();
+    x.lineWidth = 4; x.strokeStyle = NAVY; x.stroke();
+    x.beginPath(); x.arc(cx, sy, 44, 0, Math.PI * 2); x.lineWidth = 2; x.strokeStyle = '#FFFFFF'; x.stroke();
+    x.fillStyle = NAVY; x.beginPath();
+    for (var s = 0; s < 10; s++) {
+      var r = s % 2 === 0 ? 30 : 13, a = -Math.PI / 2 + s * Math.PI / 5;
+      var px2 = cx + r * Math.cos(a), py2 = sy + r * Math.sin(a);
+      if (s === 0) x.moveTo(px2, py2); else x.lineTo(px2, py2);
+    }
+    x.closePath(); x.fill();
+
+    // Firma y folio
+    x.strokeStyle = NAVY; x.lineWidth = 2;
+    x.beginPath(); x.moveTo(250, 1085); x.lineTo(650, 1085); x.stroke();
+    x.fillStyle = NAVY; fitText(x, d.docente, 390, 26, '700', SANS); x.fillText(d.docente, 450, 1116);
+    x.fillStyle = MUTE; x.font = '20px ' + SANS; x.fillText('Docente de la asignatura', 450, 1140);
+
+    x.textAlign = 'right'; x.fillStyle = MUTE; x.font = '20px ' + SANS;
+    x.fillText('FOLIO DE VERIFICACIÓN', W - 250, 1085);
+    x.fillStyle = NAVY; x.font = '700 30px "Courier New", monospace';
+    x.fillText(d.folio, W - 250, 1122);
+    x.textAlign = 'center';
+  }
+
+  function diplomaData() {
+    var r = S.result;
+    return {
+      escuela: CFG.escuela, asignatura: CFG.asignatura, docente: CFG.docente,
+      nombre: S.datos.nombre, cuenta: S.datos.cuenta,
+      aciertos: r.aciertos, total: Q.length, calif: r.calif,
+      tiempo: fmtTiempo(r.tiempoMs), fecha: fmtFecha(S.fin), folio: r.folio,
+      mostrarPuntaje: CFG.mostrarPuntajeEnDiploma
+    };
+  }
+
+  /* =====================================================
+     Pantalla 3 · Resultados y diploma
+     ===================================================== */
+  function ansView(q, who) {
+    var r = S.resp[q.id];
+    if (q.tipo === 'mc') {
+      var oi = who === 'right' ? q.correcta : r;
+      return h('p', null, oi == null ? 'Sin respuesta' : q.opciones[oi]);
+    }
+    if (q.tipo === 'order') {
+      var arr = who === 'right' ? q.items.map(function (_, i) { return i; }) : (r && r.t ? r.arr : null);
+      if (!arr) return h('p', null, 'Sin respuesta');
+      return h('ol', null, arr.map(function (i) { return h('li', null, q.items[i]); }));
+    }
+    var L = layoutFor(q);
+    return h('ul', null, q.pares.map(function (p, i) {
+      var t = who === 'right' ? p.der : (r && r[i] >= 0 ? L.all[r[i]] : 'Sin respuesta');
+      return h('li', null, p.izq + ' → ' + t);
+    }));
+  }
+
+  function screenResultados() {
+    var r = S.result, tiene = r.aciertos >= CFG.aciertosMinimosParaDiploma;
+    var aprobado = r.calif >= CFG.aprobatoria;
+    var nombrePila = S.datos.nombre.split(' ')[0];
+    var canvas = h('canvas', { role: 'img', 'aria-label': 'Constancia de término de ' + S.datos.nombre + ', número de cuenta ' + S.datos.cuenta + ', ' + fmtTiempo(r.tiempoMs) + ', ' + fmtFecha(S.fin) });
+
+    var node = h('div', null,
+      h('section', { class: 'card' },
+        h('p', { class: 'eyebrow' }, 'Cuestionario terminado'),
+        h('h1', { 'data-focus': true }, '¡Listo, ' + nombrePila + '!'),
+        h('div', { class: 'stats' },
+          h('div', { class: 'stat' }, h('small', null, 'Aciertos'), h('strong', null, r.aciertos + ' de ' + Q.length)),
+          h('div', { class: 'stat' }, h('small', null, 'Calificación'), h('strong', null, r.calif.toFixed(1)),
+            h('span', { class: 'badge ' + (aprobado ? 'ok' : 'no') }, aprobado ? 'Aprobado' : 'No aprobado')),
+          h('div', { class: 'stat' }, h('small', null, 'Tiempo'), h('strong', null, fmtTiempo(r.tiempoMs))),
+          h('div', { class: 'stat' }, h('small', null, 'Fecha'), h('strong', { style: 'font-size:1.15rem' }, fmtFecha(S.fin)))
+        ),
+        tiene
+          ? h('div', null,
+              h('p', null, CFG.mensajeEntrega),
+              h('div', { class: 'diploma-wrap' }, canvas),
+              h('div', { class: 'actions' },
+                h('button', { type: 'button', class: 'btn primary', onclick: function () { descargar(canvas); } }, '⬇ Descargar constancia (JPG)'),
+                h('button', { type: 'button', class: 'btn ghost', onclick: function () { imprimir(canvas); } }, '🖨 Imprimir o guardar PDF')))
+          : h('p', { class: 'banner' }, 'Para obtener la constancia necesitas al menos ' + CFG.aciertosMinimosParaDiploma + ' aciertos. Revisa la retroalimentación y vuelve a intentarlo.'),
+        CFG.permitirNuevoIntento
+          ? h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn ghost', onclick: nuevoIntento }, 'Intentar de nuevo'))
+          : null
+      ),
+      CFG.mostrarRetroalimentacion ? reviewBlock() : null
+    );
+    show(node);
+    if (tiene) drawDiploma(canvas, diplomaData());
+  }
+
+  function reviewBlock() {
+    var box = h('section', { class: 'card review' }, h('h2', null, 'Revisión de tus respuestas'));
+    Q.forEach(function (q, i) {
+      var ok = S.result.detalle[i];
+      box.appendChild(h('details', null,
+        h('summary', null, h('span', { class: 'mark ' + (ok ? 'ok' : 'no'), 'aria-hidden': 'true' }, ok ? '✓' : '✗'),
+          h('span', null, (i + 1) + '. ' + q.enunciado + (ok ? ' (correcta)' : ' (incorrecta)'))),
+        h('div', { class: 'body' },
+          h('div', { class: 'ans you' + (ok ? ' good' : '') }, h('b', null, 'Tu respuesta'), ansView(q, 'you')),
+          ok ? null : h('div', { class: 'ans right' }, h('b', null, 'Respuesta correcta'), ansView(q, 'right')),
+          h('p', { class: 'retro' }, q.retro)
+        )));
+    });
+    return box;
+  }
+
+  function descargar(canvas) {
+    var name = 'Constancia_Modulo4_' + slug(S.datos.nombre) + '_' + S.datos.cuenta + '.jpg';
+    function viaLink(href) { var a = h('a', { href: href, download: name }); document.body.appendChild(a); a.click(); document.body.removeChild(a); }
+    if (canvas.toBlob) {
+      canvas.toBlob(function (b) {
+        if (!b) { viaLink(canvas.toDataURL('image/jpeg', 0.92)); return; }
+        var u = URL.createObjectURL(b); viaLink(u); setTimeout(function () { URL.revokeObjectURL(u); }, 4000);
+      }, 'image/jpeg', 0.92);
+    } else viaLink(canvas.toDataURL('image/jpeg', 0.92));
+  }
+
+  function imprimir(canvas) {
+    var img = document.getElementById('print-img');
+    img.onload = function () { window.print(); };
+    img.src = canvas.toDataURL('image/png');
+  }
+
+  function nuevoIntento() {
+    confirmar('Se borrarán tus resultados y la constancia actual, y empezará un nuevo intento. ¿Seguir?', 'Nuevo intento', 'Cancelar', function () {
+      var datos = S.datos;
+      wipe(); layouts = {};
+      S = { datos: datos, fase: 'registro' };
+      render();
+    });
+  }
+
+  /* ---------- arranque ---------- */
+  function render() {
+    if (!S || S.fase === 'registro') screenRegistro();
+    else if (S.fase === 'eval') screenEval(render.first === true);
+    else screenResultados();
+    render.first = false;
+  }
+
+  document.getElementById('brand-title').textContent = CFG.titulo;
+  document.getElementById('foot-text').textContent = CFG.docente + ' · ' + CFG.escuela;
+  S = load();
+  render.first = !!(S && S.fase === 'eval' && S.inicio && Date.now() - S.inicio > 3000);
+  render();
+})();
+
+</script>
+</body>
+</html>
